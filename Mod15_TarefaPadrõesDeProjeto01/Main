@@ -1,0 +1,17 @@
+public class Main {
+    public static void main(String[] args) {
+
+        Cliente cliente = new Cliente("3", true);
+        Factory factory = confirmContr(cliente);
+        Carro carro = factory.criar(cliente.escolha());
+
+    }
+
+    private static Factory confirmContr(Cliente cliente) {
+        if(cliente.possuiContrato()){
+            return new ComContrato();
+        } else{
+            return new SemContrato();
+        }
+    }
+}
