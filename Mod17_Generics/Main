@@ -1,0 +1,75 @@
+import javax.swing.*;
+
+public class Main {
+    public static void main(String[] args) {
+        // Crie uma lista.
+        // Crie diferentes classes de carros.
+        // Sua lista deve receber qualquer tipo de carro.
+        // DICA: Visitar o estudo de classe abstrata com classes concretas.
+        // PASTA NO GIT: Generics.
+
+        String opcao = JOptionPane.showInputDialog(null,
+                "Digite abaixo qual modelo de carro quer adicionar: \n" +
+                        "1 - SW4\n" +
+                        "2 - Eclipse Cross\n" +
+                        "3 - Nissan Versa",
+                "Escolha",JOptionPane.INFORMATION_MESSAGE);
+
+        while(!opcaovalida(opcao)){
+            opcao = JOptionPane.showInputDialog(null,
+                    "Opção Inválida! \nDigite abaixo qual modelo de carro quer adicionar: \n" +
+                            "1 - SW4\n" +
+                            "2 - Eclipse Cross\n" +
+                            "3 - Nissan Versa",
+                    "Tente novamente",JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        while(opcaovalida(opcao)){
+            String dados = JOptionPane.showInputDialog(null,
+                    "Digite os dados do cliente separados por vírgula, conforme exemplo: \nCodigo, Nome, Cor, Valor, Cavalos de Potencia.",
+                    "Cadastro",JOptionPane.INFORMATION_MESSAGE);
+            if(opcao.equals("1")){
+                cadastrar("1", dados);
+            } else if(opcao.equals("2")){
+                cadastrar("2", dados);
+            } else if(opcao.equals("3")){
+                cadastrar("3", dados);
+            }
+            opcao = JOptionPane.showInputDialog(null,
+                    "Digite abaixo qual modelo de carro quer adicionar: \n" +
+                            "1 - SW4\n" +
+                            "2 - Eclipse Cross\n" +
+                            "3 - Nissan Versa",
+                    "Escolha",JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    private static boolean opcaovalida(String opcao) {
+        if(opcao.equals("1") || opcao.equals("2") || opcao.equals("3")){
+            return true;
+        } return false;
+    }
+
+    private static void cadastrar(String opcao, String dados) {
+        Carro car = null;
+        String[] dadosSep = dados.split(", ");
+
+        if(opcao == "1") {
+            car = new SW4(dadosSep[0],dadosSep[1],dadosSep[2],dadosSep[3],dadosSep[4]);
+            cadastrarNaLista(car, car);
+        } else if (opcao == "2"){
+            car = new EclipseCross(dadosSep[0],dadosSep[1],dadosSep[2],dadosSep[3],dadosSep[4]);
+            cadastrarNaLista(car, car);
+        } else if (opcao == "3"){
+            car = new NissanVersa(dadosSep[0],dadosSep[1],dadosSep[2],dadosSep[3],dadosSep[4]);
+            cadastrarNaLista(car, car);
+        }
+        JOptionPane.showMessageDialog(null, "Carro cadastrado com sucesso: " +
+                car.consultar(car.getCodigo()), "Cadastro realizado", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private static void cadastrarNaLista(Carro carro, Carro carroc) {
+        carroc.cadastrar(carro);
+    }
+
+}
